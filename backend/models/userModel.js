@@ -1,0 +1,75 @@
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Please tell us your name'],
+    trim: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: [true, 'please provide your email'],
+    validate: [validator.isEmail, 'Please provide valid email'],
+  },
+  photo: String,
+  password: {
+    type: String,
+    required: [true, 'Please provide a password'],
+    minlength: 8,
+    select: false,
+  },
+  passwordConfirm: {
+    type: String,
+    required: [true, 'Please confirm your password'],
+    validate: {
+      // This works only on CREATE and SAVE
+      validator: function (val) {
+        return this.password === val;
+      },
+      message: 'Passwords are not the same',
+    },
+  },
+  passwordChangedAt: Date,
+});
+
+// Encrypt the password
+userSchema.pre('save', async function (next) {
+  // Only runs this function if the password was actually modified
+  if (!this.isModified('password')) return next();
+
+  // encrypt the password
+  this.password = await bcrypt.hash(this.password, 12);
+
+  // Do not store the passwordConfirm in the DB
+  this.passwordConfirm = undefined;
+
+  next();
+});
+
+// instance method
+userSchema.methods.correctPassword = async function (
+  candidatepassword,
+  userpassword
+) {
+  return await bcrypt.compare(candidatepassword, userpassword);
+};
+
+userSchema.methods.changedPasswordAfter = function (JWTStamp) {
+  if (this.passwordChangedAt) {
+    const changedTimeStamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return JWTStamp < changedTimeStamp;
+  }
+
+  // Default means not changed the password
+  return false;
+};
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
