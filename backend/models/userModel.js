@@ -92,7 +92,7 @@ userSchema.methods.changedPasswordAfter = function (JWTStamp) {
     return JWTStamp < changedTimeStamp;
   }
 
-  // Default means not changed the password
+  // Default: means not changed the password
   return false;
 };
 
