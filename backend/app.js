@@ -6,10 +6,12 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 
-const tourRouter = require('./routes/tourRoute');
-const userRouter = require('./routes/userRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+
+const tourRouter = require('./routes/tourRoute');
+const userRouter = require('./routes/userRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
 
 const app = express();
 
@@ -68,6 +70,7 @@ app.use((req, res, next) => {
 // ROUTES (Mounting the routers)
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/reviews', reviewRouter);
 
 // unhandled routes error middleware
 app.all('*', (req, res, next) => {
