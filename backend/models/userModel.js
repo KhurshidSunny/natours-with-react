@@ -49,25 +49,25 @@ const userSchema = new mongoose.Schema({
 });
 
 // Encrypt the password
-userSchema.pre('save', async function (next) {
-  // Only runs this function if the password was actually modified
-  if (!this.isModified('password')) return next();
+// userSchema.pre('save', async function (next) {
+//   // Only runs this function if the password was actually modified
+//   if (!this.isModified('password')) return next();
 
-  // encrypt the password
-  this.password = await bcrypt.hash(this.password, 12);
+//   // encrypt the password
+//   this.password = await bcrypt.hash(this.password, 12);
 
-  // Do not store the passwordConfirm in the DB
-  this.passwordConfirm = undefined;
+//   // Do not store the passwordConfirm in the DB
+//   this.passwordConfirm = undefined;
 
-  next();
-});
+//   next();
+// });
 
-userSchema.pre('save', function (next) {
-  if (!this.isModified('password') || this.isNew) return next();
+// userSchema.pre('save', function (next) {
+//   if (!this.isModified('password') || this.isNew) return next();
 
-  this.passwordChangedAt = Date.now() - 1000;
-  next();
-});
+//   this.passwordChangedAt = Date.now() - 1000;
+//   next();
+// });
 
 // query middleware for not showing inactive users to the getAllUsers reqest
 userSchema.pre(/^find/, function (next) {
