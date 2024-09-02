@@ -517,6 +517,7 @@ body {
     0 100%
   );
   margin-top: calc(0px - var(--section-rotate));
+
   position: relative;
   z-index: 1000;
 }
