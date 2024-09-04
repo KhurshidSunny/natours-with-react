@@ -1,16 +1,32 @@
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-// import Tour from "./components/Tour";
-import TourList from "./components/TourList";
+// import Account from "./components/Account";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+import TourList from "./features/TourList";
+import Tour from "./features/Tour";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AppLayout from "./components/AppLayout";
+import Login from "./components/Login";
+import Account from "./components/Account";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div>
-      <Header />
-      <TourList />
-      {/* <Tour /> */}
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <div>
+          <Routes>
+            <Route path="/" element={<AppLayout />}>
+              <Route index element={<Navigate to="/tours" replace />} />
+              <Route path="/tours" element={<TourList />} />
+              <Route path="tours/:tourId" element={<Tour />} />
+              <Route path="login" element={<Login />} />
+              <Route path="account" element={<Account />} />
+            </Route>
+          </Routes>
+        </div>
+      </QueryClientProvider>
+    </BrowserRouter>
   );
 }
 

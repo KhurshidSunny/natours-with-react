@@ -1,10 +1,10 @@
-import { FaArrowUp, FaCalendar, FaStar, FaUser } from "react-icons/fa";
+// import { FaArrowUp, FaCalendar, FaStar, FaUser } from "react-icons/fa";
 import MapComponent from "./MapComponent";
-import TourHeader from "./TourHeader";
-import TourDescription from "./TourDescription";
-import TourReviewList from "./TourReviewList";
-import TourCTA from "./TourCTA";
-import TourPicturesList from "./TourPictureList";
+import TourHeader from "../features/TourHeader";
+import TourDescription from "../features/TourDescription";
+import TourReviewList from "../features/TourReviewList";
+import TourCTA from "../features/TourCTA";
+import TourPicturesList from "../features/TourPictureList";
 
 function Tour() {
   return (
