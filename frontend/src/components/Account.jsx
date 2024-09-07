@@ -6,8 +6,43 @@ import {
   FaMap,
   FaUsers,
 } from "react-icons/fa"; // Import icons
+import { useUser } from "../context/UserContext";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useUpdateMe } from "../hooks/useUpdateMe";
+import ErrorPage from "./ErrorPage";
+import LoadingPage from "./LoadingPage";
+import UpdatePasswordSettings from "./UpdatePasswordSettings";
 
-const Account = () => {
+function Account() {
+  const { currentUser } = useUser();
+
+  const { updateUserSettings, isPending, isError, error } = useUpdateMe();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: { name: currentUser?.name, email: currentUser?.email },
+  });
+
+  useEffect(() => {
+    if (currentUser) {
+      reset({
+        name: currentUser?.name,
+        email: currentUser?.email,
+      });
+    }
+  }, [currentUser, reset]);
+
+  function onSubmit(data) {
+    updateUserSettings(data);
+    console.log(data);
+  }
+
+  if (isPending) return <LoadingPage />;
+  if (isError) return <ErrorPage message={error.message} />;
   return (
     <main className="main">
       <div className="user-view">
@@ -39,35 +74,37 @@ const Account = () => {
             </li>
           </ul>
 
-          <div className="admin-nav">
-            <h5 className="admin-nav__heading">Admin</h5>
-            <ul className="side-nav">
-              <li>
-                <a href="#">
-                  <FaMap />
-                  Manage tours
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <FaUsers />
-                  Manage users
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <FaStar />
-                  Manage reviews
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <FaBriefcase />
-                  Manage bookings
-                </a>
-              </li>
-            </ul>
-          </div>
+          {currentUser?.role === "admin" && (
+            <div className="admin-nav">
+              <h5 className="admin-nav__heading">{currentUser?.role}</h5>
+              <ul className="side-nav">
+                <li>
+                  <a href="#">
+                    <FaMap />
+                    Manage tours
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <FaUsers />
+                    Manage users
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <FaStar />
+                    Manage reviews
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <FaBriefcase />
+                    Manage bookings
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
         </nav>
 
         <div className="user-view__content">
@@ -75,17 +112,22 @@ const Account = () => {
             <h2 className="heading-secondary ma-bt-md">
               Your account settings
             </h2>
-            <form className="form form-user-data">
+            <form
+              className="form form-user-data"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className="form__group">
                 <label className="form__label" htmlFor="name">
                   Name
                 </label>
                 <input
                   id="name"
+                  name="name"
                   className="form__input"
                   type="text"
-                  value="Jonas Schmedtmann"
+                  // value={currentUser?.name}
                   required
+                  {...register("name")}
                 />
               </div>
               <div className="form__group ma-bt-md">
@@ -94,16 +136,21 @@ const Account = () => {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   className="form__input"
                   type="email"
-                  value="admin@natours.io"
+                  // value={currentUser?.email}
                   required
+                  {...register("email", {
+                    required: "Please enter valid email",
+                  })}
                 />
+                {errors.email && <p>{errors.email.message}</p>}
               </div>
               <div className="form__group form__photo-upload">
                 <img
                   className="form__user-photo"
-                  src="img/user.jpg"
+                  src={`/img/users/${currentUser?.photo}`}
                   alt="User photo"
                 />
                 <a href="#" className="btn-text">
@@ -120,59 +167,11 @@ const Account = () => {
 
           <div className="line">&nbsp;</div>
 
-          <div className="user-view__form-container">
-            <h2 className="heading-secondary ma-bt-md">Password change</h2>
-            <form className="form form-user-settings">
-              <div className="form__group">
-                <label className="form__label" htmlFor="password-current">
-                  Current password
-                </label>
-                <input
-                  id="password-current"
-                  className="form__input"
-                  type="password"
-                  placeholder="••••••••"
-                  required
-                  minLength="8"
-                />
-              </div>
-              <div className="form__group">
-                <label className="form__label" htmlFor="password">
-                  New password
-                </label>
-                <input
-                  id="password"
-                  className="form__input"
-                  type="password"
-                  placeholder="••••••••"
-                  required
-                  minLength="8"
-                />
-              </div>
-              <div className="form__group ma-bt-lg">
-                <label className="form__label" htmlFor="password-confirm">
-                  Confirm password
-                </label>
-                <input
-                  id="password-confirm"
-                  className="form__input"
-                  type="password"
-                  placeholder="••••••••"
-                  required
-                  minLength="8"
-                />
-              </div>
-              <div className="form__group right">
-                <button className="btn btn--small btn--green" type="submit">
-                  Save password
-                </button>
-              </div>
-            </form>
-          </div>
+          <UpdatePasswordSettings />
         </div>
       </div>
     </main>
   );
-};
+}
 
 export default Account;

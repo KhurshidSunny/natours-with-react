@@ -1,10 +1,12 @@
+import ErrorPage from "../components/ErrorPage";
+import LoadingPage from "../components/LoadingPage";
 import { useGetAllTours } from "../hooks/useGetAllTours";
 import TourItem from "./TourItem";
 
 function TourList() {
-  const { tours, isLoading, error } = useGetAllTours();
-  if (isLoading) return <div>Loading....</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  const { tours, isLoading, error, isError } = useGetAllTours();
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <ErrorPage message={error.message} />;
 
   return (
     <ul className="main">

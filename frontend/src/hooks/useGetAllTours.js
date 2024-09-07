@@ -6,10 +6,11 @@ export function useGetAllTours() {
     data: tours,
     isLoading,
     error,
+    isError,
   } = useQuery({
     queryKey: ["tours"],
     queryFn: getTours,
   });
 
-  return { tours, isLoading, error };
+  return { tours, isLoading, error, isError };
 }

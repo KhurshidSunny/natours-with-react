@@ -1,10 +1,15 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-function TourGuideItem({ img }) {
+function TourGuideItem({ src, guideRole, guideName }) {
   return (
     <li className="overview-box__detail">
-      <img src={img} alt="Role DB" className="overview-box__img" />
-      <span className="overview-box__label">Guide Role DB</span>
-      <span className="overview-box__text">Guide Name DB</span>
+      <img
+        src={`/img/users/${src}`}
+        alt="Role DB"
+        className="overview-box__img"
+      />
+      <span className="overview-box__label">{guideRole}</span>
+      <span className="overview-box__text">{guideName}</span>
     </li>
   );
 }

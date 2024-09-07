@@ -1,14 +1,14 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import TourReviewItem from "./TourReviewItem";
 
-function TourReviewList() {
+function TourReviewList({ reviews }) {
   return (
     <section className="section-reviews">
       <ul className="reviews">
-        <TourReviewItem />
-        <TourReviewItem />
-        <TourReviewItem />
-        <TourReviewItem />
-        <TourReviewItem />
+        {reviews.map((review) => (
+          <TourReviewItem review={review} key={review.id} />
+        ))}
       </ul>
     </section>
   );
