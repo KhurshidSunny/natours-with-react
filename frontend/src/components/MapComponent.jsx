@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { useRef, useEffect } from "react";
 import "ol/ol.css";
 import { Map, View } from "ol";
@@ -11,30 +13,20 @@ import Feature from "ol/Feature";
 import { fromLonLat } from "ol/proj";
 import { Icon, Style, Stroke } from "ol/style";
 
-const MapComponent = () => {
+// eslint-disable-next-line react/prop-types
+
+//    OPEN LAYERS MAP USED
+function MapComponent({ allLocations }) {
+  const locations = allLocations.map((loc) => {
+    return {
+      coordinates: loc.coordinates,
+      description: loc.description,
+    };
+  });
+
   const mapRef = useRef();
 
   useEffect(() => {
-    // Define the coordinates
-    const locations = [
-      {
-        coordinates: [-112.987418, 37.198125],
-        description: "Zion Canyon National Park",
-      },
-      {
-        coordinates: [-111.376161, 36.86438],
-        description: "Antelope Canyon",
-      },
-      {
-        coordinates: [-112.115763, 36.058973],
-        description: "Grand Canyon National Park",
-      },
-      {
-        coordinates: [-116.107963, 34.011646],
-        description: "Joshua Tree National Park",
-      },
-    ];
-
     // Convert coordinates from lon/lat to map projection
     const features = locations.map((location) => {
       const feature = new Feature({
@@ -108,6 +100,6 @@ const MapComponent = () => {
   }, []);
 
   return <div ref={mapRef} className="section-map" />;
-};
+}
 
 export default MapComponent;

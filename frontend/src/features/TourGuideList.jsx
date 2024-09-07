@@ -1,12 +1,20 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import TourGuideItem from "./TourGuideItem";
 
-function TourGuideList() {
+// eslint-disable-next-line react/prop-types
+function TourGuideList({ guides }) {
   return (
     <ul className="overview-box__group">
       <h2 className="heading-secondary ma-bt-lg">Your tour guides</h2>
-      <TourGuideItem img="img/users/user-19.jpg" />
-      <TourGuideItem img="img/users/user-18.jpg" />
-      <TourGuideItem img="img/users/user-17.jpg" />
+      {guides.map((guide) => (
+        <TourGuideItem
+          src={guide.photo}
+          guideRole={guide.role}
+          guideName={guide.name}
+          key={guide._id}
+        />
+      ))}
     </ul>
   );
 }

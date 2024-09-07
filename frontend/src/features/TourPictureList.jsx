@@ -1,11 +1,14 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import TourPictureItem from "./TourPictureItem";
 
-function TourPicturesList() {
+// eslint-disable-next-line react/prop-types
+function TourPicturesList({ tourImages }) {
   return (
     <section className="section-pictures">
-      <TourPictureItem src="img/tours/tour-5-1.jpg" imgNo={1} />
-      <TourPictureItem src="img/tours/tour-5-2.jpg" imgNo={2} />
-      <TourPictureItem src="img/tours/tour-5-3.jpg" imgNo={3} />
+      {tourImages.map((img, i) => (
+        <TourPictureItem src={img} imgNo={i + 1} key={img} />
+      ))}
     </section>
   );
 }
