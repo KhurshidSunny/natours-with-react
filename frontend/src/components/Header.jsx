@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import { useCurrentUserPhoto } from "../hooks/useCurrentUserPhoto";
 
 function Header() {
   const { currentUser, logoutUser } = useUser();
-  console.log(currentUser);
   const username = currentUser?.name.split(" ")[0];
+
+  const currentUserPhoto = useCurrentUserPhoto(currentUser?.photo);
+
   return (
     <header className="header">
       <nav className="nav nav--tours">
@@ -39,10 +42,11 @@ function Header() {
         {currentUser && (
           <Link to="/me" className="nav__el">
             <img
-              src={`/img/users/${currentUser?.photo}`}
+              src={currentUserPhoto}
               alt="User photo"
               className="nav__user-img"
             />
+
             <span>{username}</span>
           </Link>
         )}

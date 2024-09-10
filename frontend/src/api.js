@@ -55,14 +55,13 @@ export async function loginUser(cred) {
   }
 }
 
-export async function updateMe(data) {
+export async function updateMe(formData) {
+  console.log(formData);
   try {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/users/updateMe`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+
+      body: formData,
       credentials: "include",
     });
 
@@ -70,7 +69,6 @@ export async function updateMe(data) {
       const message = ` ${res.statusText}: You can only update email and password`;
       throw new Error(message);
     }
-
     return await res.json();
   } catch (err) {
     throw new Error(err);

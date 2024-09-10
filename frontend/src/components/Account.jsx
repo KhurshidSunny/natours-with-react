@@ -13,9 +13,12 @@ import { useUpdateMe } from "../hooks/useUpdateMe";
 import ErrorPage from "./ErrorPage";
 import LoadingPage from "./LoadingPage";
 import UpdatePasswordSettings from "./UpdatePasswordSettings";
+import { useCurrentUserPhoto } from "../hooks/useCurrentUserPhoto";
 
 function Account() {
   const { currentUser } = useUser();
+
+  const currentUserPhoto = useCurrentUserPhoto(currentUser?.photo);
 
   const { updateUserSettings, isPending, isError, error } = useUpdateMe();
   const {
@@ -23,9 +26,12 @@ function Account() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm({
     defaultValues: { name: currentUser?.name, email: currentUser?.email },
   });
+
+  const watchedPhoto = watch("photo");
 
   useEffect(() => {
     if (currentUser) {
@@ -37,8 +43,19 @@ function Account() {
   }, [currentUser, reset]);
 
   function onSubmit(data) {
-    updateUserSettings(data);
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+
+    if (watchedPhoto && data.photo && data.photo[0]) {
+      formData.append("photo", data.photo[0]);
+    } else {
+      console.log("No photo uploaded");
+    }
+
+    console.log(formData);
     console.log(data);
+    updateUserSettings(formData);
   }
 
   if (isPending) return <LoadingPage />;
@@ -150,12 +167,19 @@ function Account() {
               <div className="form__group form__photo-upload">
                 <img
                   className="form__user-photo"
-                  src={`/img/users/${currentUser?.photo}`}
+                  src={currentUserPhoto}
                   alt="User photo"
                 />
-                <a href="#" className="btn-text">
-                  Choose new photo
-                </a>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="photo"
+                  className="form__upload"
+                  id="photo"
+                  {...register("photo")}
+                />
+                <label htmlFor="photo">Choose new photo</label>
               </div>
               <div className="form__group right">
                 <button className="btn btn--small btn--green" type="submit">
