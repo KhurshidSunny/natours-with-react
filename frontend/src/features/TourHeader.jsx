@@ -1,13 +1,15 @@
 import { FaClock, FaMapMarker } from "react-icons/fa";
+import { useTourImageCover } from "../hooks/useTourImageCover";
 
 /* eslint-disable react/prop-types */
 function TourHeader({ tour }) {
+  const tourImageCover = useTourImageCover(tour?.imageCover);
   return (
     <section className="section-header">
       <div className="header__hero">
         <p className="header__hero-overlay">&nbsp;</p>
         <img
-          src={`/img/tours/${tour.imageCover}`}
+          src={tourImageCover}
           alt="Tour-5-cover image"
           className="header__hero-img"
         />
