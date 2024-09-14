@@ -44,7 +44,7 @@ function sendErrorProd(err, res) {
     // Programming or other unknown errors
   } else {
     // 1) Log Error
-    // console.log('Error', err);
+    console.log('Error', err);
 
     // 2) Send Generic message
     res.status(500).json({
