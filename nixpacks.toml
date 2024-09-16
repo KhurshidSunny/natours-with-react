@@ -1,3 +1,8 @@
-setup = { cmd = "cd backend" }
-build = { cmd = "npm install && npm run build" }
-start = { cmd = "npm start" }
+[setup]
+cmd = "cd backend"
+
+[build]
+cmd = "cd backend && npm install"
+
+[start]
+cmd = "cd backend && npm start"
