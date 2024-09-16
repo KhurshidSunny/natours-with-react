@@ -1,4 +1,5 @@
 const Tour = require('./../models/tourModel');
+
 const APIFeatures = require('./../utils/apiFeatures');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
@@ -27,8 +28,6 @@ exports.uploadTourImages = upload.fields([
 ]);
 
 exports.resizeTourImages = catchAsync(async (req, res, next) => {
-  console.log(req.files);
-
   // 1) Cover image
   req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
   await sharp(req.files.imageCover[0].buffer)
@@ -52,7 +51,6 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
     })
   );
 
-  console.log(req.body);
   next();
 });
 
@@ -153,7 +151,6 @@ exports.getMonthlyPlan = catchAsync(async (req, res) => {
 exports.getToursWithin = catchAsync(async (req, res, next) => {
   const { distance, latlng, unit } = req.params;
   const [lat, lng] = latlng.split(',');
-  console.log(distance, lat, lng, unit);
 
   const radius = unit === 'mi' ? distance / 3963.2 : distance / 6378.1;
 
@@ -176,7 +173,6 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
 exports.getDistances = catchAsync(async (req, res, next) => {
   const { latlng, unit } = req.params;
   const [lat, lng] = latlng.split(',');
-  console.log(lat, lng, unit);
 
   const multiplier = unit === 'mi' ? 0.000621371 : 0.001;
 

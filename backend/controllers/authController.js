@@ -8,8 +8,8 @@ const Email = require('./../utils/email');
 const cookieParser = require('cookie-parser');
 
 const signToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.EXPIRES_IN,
+  jwt.sign({ id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
 const createSendToken = (user, statusCode, res) => {
@@ -99,7 +99,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   // 2) Verification Token
-  const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET_KEY);
 
   // 3) Check if the user still exists
   const currentUser = await User.findById(decode.id);

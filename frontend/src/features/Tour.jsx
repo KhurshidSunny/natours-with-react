@@ -13,7 +13,6 @@ import LoadingPage from "../components/LoadingPage";
 function Tour() {
   const { tourId } = useParams();
   const { tour, isLoading } = useGetTour(tourId);
-  // console.log(tour);
   if (isLoading) return <LoadingPage />;
   if (tour.status === "error")
     return <ErrorPage message={`There is no Tour with this ${tourId} ID`} />;

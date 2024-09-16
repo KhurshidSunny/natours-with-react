@@ -1,6 +1,7 @@
 const express = require('express');
 const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authController');
+const bookingController = require('../controllers/bookingController');
 const reviewRouter = require('./reviewRoutes');
 
 const router = express.Router();
@@ -31,7 +32,7 @@ router.route('/distances/:latlng/unit/:unit').get(tourController.getDistances);
 
 router
   .route(`/`)
-  .get(tourController.getAllTours)
+  .get(bookingController.createBookingCheckout, tourController.getAllTours)
   .post(
     authController.protect,
     authController.restrictTo('admin', 'lead-guide'),
