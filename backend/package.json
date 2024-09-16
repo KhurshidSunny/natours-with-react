@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
     "start:prod": "cross-env NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js"
   },
@@ -37,5 +38,8 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "ndb": "^1.1.5"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
