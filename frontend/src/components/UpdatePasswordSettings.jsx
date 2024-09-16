@@ -10,7 +10,6 @@ function UpdatePasswordSettings() {
   function onSubmit(data) {
     mutate(data);
     reset();
-    console.log(data);
   }
   if (isPending) return <LoadingPage />;
   if (isError) return <ErrorPage message={error.message} />;

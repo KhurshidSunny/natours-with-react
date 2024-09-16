@@ -19,7 +19,6 @@ function UserProvider({ children }) {
       });
 
       const user = await res.json();
-      console.log(user.data.doc);
       setCurrentUser(user.data.doc);
     } catch (err) {
       setCurrentUser(null);
@@ -30,7 +29,6 @@ function UserProvider({ children }) {
   useEffect(() => {
     if (isLoggedIn) getCurrentUser();
   }, [isLoggedIn]);
-  console.log(isLoggedIn);
 
   async function logoutUser() {
     try {

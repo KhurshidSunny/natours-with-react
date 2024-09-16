@@ -56,7 +56,6 @@ export async function loginUser(cred) {
 }
 
 export async function updateMe(formData) {
-  console.log(formData);
   try {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/users/updateMe`, {
       method: "PATCH",
@@ -76,7 +75,6 @@ export async function updateMe(formData) {
 }
 
 export async function updatePassword(password) {
-  console.log(password);
   try {
     const res = await fetch(
       `${import.meta.env.VITE_BASE_URL}/users/updateMyPassword`,
@@ -98,5 +96,30 @@ export async function updatePassword(password) {
     return await res.json();
   } catch (err) {
     throw new Error(err);
+  }
+}
+
+export async function stripeApi(stripePromise, currentUser, tourId) {
+  // If the user is logged in, make a request to get the checkout session
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:3000/api/v1/booking/checkout-session/${tourId}`,
+      {
+        method: "GET",
+
+        credentials: "include",
+      }
+    );
+
+    const data = await response.json();
+    if (data.status === "success") {
+      // Redirect to Stripe checkout using the sessionId
+      const stripe = await stripePromise;
+      await stripe.redirectToCheckout({ sessionId: data.session.id });
+    } else {
+      console.error("Failed to create Stripe session");
+    }
+  } catch (error) {
+    console.error("Error:", error);
   }
 }

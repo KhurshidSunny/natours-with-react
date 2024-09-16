@@ -53,8 +53,6 @@ function Account() {
       console.log("No photo uploaded");
     }
 
-    console.log(formData);
-    console.log(data);
     updateUserSettings(formData);
   }
 
