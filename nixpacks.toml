@@ -1,5 +1,3 @@
-[setup]
-cmd = "cd backend"
 
 [build]
 cmd = "cd backend && npm install"
