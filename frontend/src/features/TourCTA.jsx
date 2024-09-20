@@ -1,15 +1,22 @@
+/* eslint-disable react/prop-types */
 import { useNavigate, useParams } from "react-router";
 import { useUser } from "../context/UserContext";
 import { loadStripe } from "@stripe/stripe-js";
 import { stripeApi } from "../api";
+import { useFetchPhoto } from "../hooks/useFetchPhoto";
 
 // stripe public key
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
-function TourCTA() {
+function TourCTA({ tour }) {
   const { currentUser } = useUser();
   const navigate = useNavigate();
   const { tourId } = useParams();
+  const { images } = tour;
+
+  const photo1 = useFetchPhoto(images[0], "tours");
+  const photo2 = useFetchPhoto(images[1], "tours");
+  const photo3 = useFetchPhoto(images[2], "tours");
 
   async function handleClick() {
     if (!currentUser) {
@@ -24,10 +31,12 @@ function TourCTA() {
     <section className="section-cta">
       <div className="cta">
         <div className="cta__img cta__img--logo">
-          <img src="img/logo-white.png" alt="Natours logo" className="" />
+          <img src="/img/logo-white.png" alt="Natours logo" className="" />
         </div>
-        <img src="img/tour-5-2.jpg" alt="" className="cta__img cta__img--1" />
-        <img src="img/tour-5-1.jpg" alt="" className="cta__img cta__img--2" />
+
+        <img src={photo1} alt={photo1} className="cta__img cta__img--1" />
+        <img src={photo2} alt={photo1} className="cta__img cta__img--2" />
+        <img src={photo3} alt={photo1} className="cta__img cta__img--2" />
 
         <div className="cta__content">
           <h2 className="heading-secondary">What are you waiting for?</h2>
