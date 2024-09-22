@@ -11,6 +11,7 @@ const compression = require('compression');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const path = require('path');
 
 const tourRouter = require('./routes/tourRoute');
 const userRouter = require('./routes/userRoutes');
