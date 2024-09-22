@@ -8,7 +8,9 @@ export async function getTours() {
 
       credentials: "include",
     });
-    return await res.json();
+    const data = await res.json();
+    // console.log(data);
+    return data;
   } catch (err) {
     throw new Error(err.message);
   }
@@ -121,5 +123,22 @@ export async function stripeApi(stripePromise, currentUser, tourId) {
     }
   } catch (error) {
     console.error("Error:", error);
+  }
+}
+
+export async function getAllBookings() {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/booking`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      credentials: "include",
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw new Error(err.message);
   }
 }

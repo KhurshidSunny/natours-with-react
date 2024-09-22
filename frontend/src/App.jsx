@@ -11,6 +11,7 @@ import Login from "./components/Login";
 import Account from "./components/Account";
 import { UserProvider } from "./context/UserContext";
 import ErrorPage from "./components/ErrorPage";
+import MyTours from "./features/MyTours";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ function App() {
                 <Route index element={<Navigate to="/tours" replace />} />
                 <Route path="tours" element={<TourList />} />
                 <Route path="tours/:tourId" element={<Tour />} />
+                <Route path="booking" element={<MyTours />} />
                 <Route path="users/login" element={<Login />} />
                 <Route path="users/logout" element={<Login />} />
                 <Route path="me" element={<Account />} />

@@ -28,9 +28,10 @@ function Header() {
       </div>
       <nav className="nav nav--user">
         {currentUser && (
-          <a href="#" className="nav__el text-sm text-nowrap">
+          // <a className="nav__el text-sm text-nowrap">My bookings</a>
+          <Link to="/booking" className="nav__el text-sm text-nowrap">
             My bookings
-          </a>
+          </Link>
         )}
 
         {currentUser && (

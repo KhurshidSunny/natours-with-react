@@ -4,7 +4,7 @@ import { useGetAllTours } from "../hooks/useGetAllTours";
 import TourItem from "./TourItem";
 
 function TourList() {
-  const { tours, isLoading, error, isError } = useGetAllTours();
+  const { tours, isLoading, error, isError } = useGetAllTours("tours");
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage message={error.message} />;
 
