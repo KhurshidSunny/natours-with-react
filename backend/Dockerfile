@@ -4,14 +4,14 @@ FROM node:20
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
+# Copy package.json and package-lock.json from the backend folder to the container
+COPY backend/package*.json ./
 
-# Install dependencies
+# Install production dependencies
 RUN npm install --production
 
-# Copy the rest of the application files to the container
-COPY . .
+# Copy the rest of the backend application files to the container
+COPY backend/ .
 
 # Set environment variables (optional, as you can pass them from the platform)
 ENV NODE_ENV=production
