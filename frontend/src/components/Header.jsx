@@ -58,7 +58,9 @@ function Header() {
           </Link>
         )}
         {!currentUser && (
-          <button className="nav__el nav__el--cta">Sign up</button>
+          <Link to="/users/signup" className="nav__el nav__el--cta">
+            Sign up
+          </Link>
         )}
       </nav>
     </header>

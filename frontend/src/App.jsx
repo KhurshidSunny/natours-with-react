@@ -12,6 +12,7 @@ import Account from "./components/Account";
 import { UserProvider } from "./context/UserContext";
 import ErrorPage from "./components/ErrorPage";
 import MyTours from "./features/MyTours";
+import Signup from "./components/Signup";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ function App() {
                 <Route path="tours" element={<TourList />} />
                 <Route path="tours/:tourId" element={<Tour />} />
                 <Route path="booking" element={<MyTours />} />
+                <Route path="users/signup" element={<Signup />} />
                 <Route path="users/login" element={<Login />} />
                 <Route path="users/logout" element={<Login />} />
                 <Route path="me" element={<Account />} />
