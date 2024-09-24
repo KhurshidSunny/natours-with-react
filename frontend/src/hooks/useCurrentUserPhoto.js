@@ -7,7 +7,7 @@ export function useCurrentUserPhoto(currentUserPhotoFileName) {
     async function fetchImage() {
       try {
         const res = await fetch(
-          `http://127.0.0.1:3000/img/users/${currentUserPhotoFileName}`,
+          `https://natoursapp-gm71q0ya.b4a.run/api/v1/img/users/${currentUserPhotoFileName}`,
           {
             credentials: "include",
           }
