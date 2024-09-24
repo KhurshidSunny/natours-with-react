@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { useUser } from "../context/UserContext";
-import { useCurrentUserPhoto } from "../hooks/useCurrentUserPhoto";
+import { useFetchPhoto } from "../hooks/useFetchPhoto";
 
 function Header() {
   const { currentUser, logoutUser } = useUser();
   const username = currentUser?.name.split(" ")[0];
-  console.log(currentUser);
 
-  const currentUserPhoto = useCurrentUserPhoto(currentUser?.photo);
+  const photo = useFetchPhoto(currentUser?.photo, "users");
 
   return (
     <header className="header">
@@ -43,11 +42,7 @@ function Header() {
 
         {currentUser && (
           <Link to="/me" className="nav__el">
-            <img
-              src={currentUserPhoto}
-              alt="User photo"
-              className="nav__user-img"
-            />
+            <img src={photo} alt="User photo" className="nav__user-img" />
 
             <span>{username}</span>
           </Link>

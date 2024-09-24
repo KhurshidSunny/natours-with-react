@@ -13,12 +13,12 @@ import { useUpdateMe } from "../hooks/useUpdateMe";
 import ErrorPage from "./ErrorPage";
 import LoadingPage from "./LoadingPage";
 import UpdatePasswordSettings from "./UpdatePasswordSettings";
-import { useCurrentUserPhoto } from "../hooks/useCurrentUserPhoto";
+import { useFetchPhoto } from "../hooks/useFetchPhoto";
 
 function Account() {
   const { currentUser } = useUser();
 
-  const currentUserPhoto = useCurrentUserPhoto(currentUser?.photo);
+  const photo = useFetchPhoto(currentUser?.photo, "users");
 
   const { updateUserSettings, isPending, isError, error } = useUpdateMe();
   const {
@@ -165,7 +165,7 @@ function Account() {
               <div className="form__group form__photo-upload">
                 <img
                   className="form__user-photo"
-                  src={currentUserPhoto}
+                  src={photo}
                   alt="User photo"
                 />
 

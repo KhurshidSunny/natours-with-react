@@ -6,7 +6,9 @@ export function useFetchPhoto(src, imageType) {
     async function fetchGuideImage() {
       try {
         const res = await fetch(
-          `http://127.0.0.1:3000/img/${imageType}/${src}`,
+          // `http://127.0.0.1:3000/img/${imageType}/${src}`
+          `${import.meta.env.VITE_BACKEND_IMAGE_URL}/img/${imageType}/${src}`,
+
           {
             credentials: "include",
           }
@@ -14,7 +16,6 @@ export function useFetchPhoto(src, imageType) {
         if (!res.ok) throw new Error("Failed to fetch photo");
         const imgBlob = await res.blob();
         const imgUrl = URL.createObjectURL(imgBlob);
-        console.log(imgUrl);
         setPhoto(imgUrl);
       } catch (err) {
         console.log(err.message);
