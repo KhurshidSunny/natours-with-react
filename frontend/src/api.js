@@ -1,5 +1,3 @@
-import { json } from "react-router";
-
 export async function getTours() {
   try {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/tours`, {
