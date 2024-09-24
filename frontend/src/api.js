@@ -1,3 +1,5 @@
+import { json } from "react-router";
+
 export async function getTours() {
   try {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/tours`, {
@@ -140,5 +142,27 @@ export async function getAllBookings() {
     return data;
   } catch (err) {
     throw new Error(err.message);
+  }
+}
+
+export async function signupUser(userData) {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/users/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+      credentials: "include",
+    });
+    if (!res.ok) {
+      const message = `${res.statusText}`;
+      throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw new Error(`Error: ${err.message}`);
   }
 }
