@@ -57,6 +57,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Data Sanitize against NoSQL query injection
 app.use(mongoSanitize());

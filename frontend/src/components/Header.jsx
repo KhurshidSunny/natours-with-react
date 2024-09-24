@@ -5,6 +5,7 @@ import { useCurrentUserPhoto } from "../hooks/useCurrentUserPhoto";
 function Header() {
   const { currentUser, logoutUser } = useUser();
   const username = currentUser?.name.split(" ")[0];
+  console.log(currentUser);
 
   const currentUserPhoto = useCurrentUserPhoto(currentUser?.photo);
 
