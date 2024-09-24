@@ -8,7 +8,7 @@ function MyTours() {
 
   if (isBooking) return <LoadingPage />;
   if (isBookingError) return <ErrorPage message={bookingError.message} />;
-  console.log(bookings.data.data);
+  console.log(bookings.data);
 
   return (
     <ul className="main">

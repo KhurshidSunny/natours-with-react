@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { FaCalendar, FaFlag, FaMapMarker, FaUser } from "react-icons/fa";
 function TourCardDetails({ tour }) {
-  console.log(tour);
   const dateStr = new Date(tour.startDates[0]);
   const year = dateStr.getFullYear();
   const month = dateStr.toLocaleString("default", { month: "long" });
