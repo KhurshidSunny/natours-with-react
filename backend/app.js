@@ -87,7 +87,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // serving static files with this built-in middleware
 // app.use(express.static(`${__dirname}/public`));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Test middleware
 app.use((req, res, next) => {
