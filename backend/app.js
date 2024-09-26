@@ -23,6 +23,12 @@ const app = express();
 
 // Global MIDDLEWARES
 
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout
+);
+
 // Limit requests from same API
 const limit = rateLimit({
   max: 100,
