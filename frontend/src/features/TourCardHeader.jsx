@@ -5,7 +5,11 @@ function TourCardHeader({ name: tourName, imageCover }) {
     <header className="card__header">
       <div className="card__picture">
         <div className="card__picture-overlay">&nbsp;</div>
-        <img src={imageCover} alt="Tour 1" className="card__picture-img" />
+        <img
+          src={imageCover}
+          alt={`${tourName}-image`}
+          className="card__picture-img"
+        />
       </div>
 
       <h3 className="heading-tertirary">

@@ -9,12 +9,11 @@ function UserProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   async function getCurrentUser() {
+    console.log(import.meta.env.VITE_BASE_URL);
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/users/me`, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+       
         credentials: "include",
       });
 

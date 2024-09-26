@@ -1,5 +1,6 @@
 export async function getTours() {
   try {
+    console.log(import.meta.env.MODE)
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/tours`, {
       method: "GET",
       headers: {
@@ -105,7 +106,7 @@ export async function stripeApi(stripePromise, currentUser, tourId) {
   // If the user is logged in, make a request to get the checkout session
   try {
     const response = await fetch(
-      `http://127.0.0.1:3000/api/v1/booking/checkout-session/${tourId}`,
+      `${import.meta.env.VITE_BASE_URL}/booking/checkout-session/${tourId}`,
       {
         method: "GET",
 

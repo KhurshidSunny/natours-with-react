@@ -19,10 +19,13 @@ function TourCTA({ tour }) {
   const photo3 = useFetchPhoto(images[2], "tours");
 
   async function handleClick() {
+    console.log('clicked')
     if (!currentUser) {
       navigate("/users/login");
+
       return;
     }
+
 
     stripeApi(stripePromise, currentUser, tourId);
   }
