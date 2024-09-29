@@ -1222,6 +1222,70 @@ body {
   margin: 0 auto;
 }
 
+/* SIGNUP FORM */
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Vertically center the form */
+  padding: 2rem;
+  height: 100%;
+
+ 
+}
+
+.form-container {
+  width: 100%;
+  max-width: 600px; /* Same width as login */
+  padding: 2rem;
+  background-color: #f7f7f7;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding-bottom: 6rem;
+
+
+}
+
+.form__group {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  /* padding-bottom: 50px; */
+}
+.button-container {
+  position: absolute;
+  bottom: 20px; 
+  right: 35rem;
+
+}
+
+.btn--green {
+  background-color: #55c57a;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.heading-secondary {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+
+}
+
+.form__label {
+  font-weight: bold;
+}
+
+.form__input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+
+/* LOGIN FORM */
 .login-form {
   margin: 0 auto;
   max-width: 55rem;

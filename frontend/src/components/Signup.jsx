@@ -21,7 +21,7 @@ function Signup() {
 
   return (
     <main className="main">
-      <div className="signup-form">
+      <div className="form-container"> {/* Updated for consistency */}
         <h2 className="heading-secondary ma-bt-lg">Create your account</h2>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           {/* Name */}
@@ -58,20 +58,7 @@ function Signup() {
             {errors.email && <p>{errors.email.message}</p>}
           </div>
 
-          {/* Role */}
-          <div className="form__group">
-            <label className="form__label" htmlFor="role">
-              Role (optional)
-            </label>
-            <input
-              id="role"
-              type="text"
-              className="form__input"
-              placeholder="Your role (optional)"
-              name="role"
-              {...register("role")}
-            />
-          </div>
+  
 
           {/* Password */}
           <div className="form__group">
@@ -115,15 +102,17 @@ function Signup() {
                   value === password || "Passwords do not match",
               })}
             />
-            {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
+            {errors.passwordConfirm && (
+              <p>{errors.passwordConfirm.message}</p>
+            )}
           </div>
 
           {/* Submit button */}
-          <div className="form__group">
+          <div className="form__group button-container">
             <button className="btn btn--green" type="submit">
               Signup
             </button>
-          </div>
+</div>
         </form>
       </div>
     </main>
