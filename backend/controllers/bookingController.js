@@ -16,7 +16,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     payment_method_types: ['card'],
     mode: 'payment',
     // success_url: `https://natours-app1.netlify.app/booking`,
-    success_url: `http://localhost:5173/booking`,
+    success_url: `https://natours-app1.netlify.app/booking`,
     cancel_url: `https://natours-app1.netlify.app/tours/${req.params.tourId}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
