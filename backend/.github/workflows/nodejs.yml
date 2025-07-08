@@ -1,0 +1,57 @@
+name: Fullstack CI - Natours
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # ---- Backend Setup ----
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run Backend Build (optional)
+        working-directory: ./backend
+        run: |
+          if [ -f package.json ] && grep -q '"build"' package.json; then
+            npm run build
+          else
+            echo "No backend build script found, skipping."
+          fi
+
+      # ---- Frontend Setup ----
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Build Frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      # ---- Optional: Run Tests ----
+      # You can uncomment these once tests are added
+      # - name: Run Backend Tests
+      #   working-directory: ./backend
+      #   run: npm test
+
+      # - name: Run Frontend Tests
+      #   working-directory: ./frontend
+      #   run: npm test
